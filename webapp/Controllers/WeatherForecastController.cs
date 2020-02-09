@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using weatherModel;
+using weatherService;
 
 namespace hellodotnetcore.Controllers
 {
@@ -11,17 +12,21 @@ namespace hellodotnetcore.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly IWeatherNewsService _weatherNewsService;
+        public WeatherForecastController(
+            ILogger<WeatherForecastController> logger,
+            IWeatherNewsService weatherNewsService)
+        {
+            _logger = logger;
+            _weatherNewsService = weatherNewsService;
+        }
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
@@ -34,6 +39,13 @@ namespace hellodotnetcore.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet]
+        [Route("GetWeatherNews")]
+        public IEnumerable<WeatherNews> GetWeatherNews()
+        {
+            return _weatherNewsService.GetWeatherNews();
         }
     }
 }
