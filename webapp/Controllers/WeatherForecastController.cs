@@ -29,6 +29,7 @@ namespace hellodotnetcore.Controllers
         private readonly ILogger<WeatherForecastController> _logger;
 
         [HttpGet]
+        [Route("GetList")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
