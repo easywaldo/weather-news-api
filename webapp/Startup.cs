@@ -22,6 +22,16 @@ namespace hellodotnetcore
             services.AddSingleton(typeof(IWeatherNewsService), typeof(WeatherNewsService));
             services.AddControllers();
             services.AddSwaggerDocument();
+            services.AddCors(options =>
+                options.AddPolicy("myPolicy",
+                builder =>
+                {
+                    builder
+                        .WithOrigins("http://localhost:3001", "https://github.com/easywaldo")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                })
+            ); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +45,8 @@ namespace hellodotnetcore
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("myPolicy");
 
             app.UseAuthorization();
 

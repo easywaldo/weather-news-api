@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using weatherModel;
@@ -42,6 +43,7 @@ namespace hellodotnetcore.Controllers
             .ToArray();
         }
 
+        [EnableCors]
         [HttpGet]
         [Route("GetWeatherNews")]
         public IEnumerable<WeatherNews> GetWeatherNews()
