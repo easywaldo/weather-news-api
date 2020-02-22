@@ -14,7 +14,7 @@ namespace weatherService
         public IEnumerable<WeatherNews> GetWeatherNews()
         {
             var htmlWeb = new HtmlWeb();
-            var webPage = htmlWeb.Load("https://search.naver.com/search.naver?where=video&ie=utf8&sort=rel&listmode=v&stype=&period=&playtime=&selected_cp=&nso=&x_video=&sm=tab_pge&query=날씨&start=33&offset=3");
+            var webPage = htmlWeb.Load("https://search.naver.com/search.naver?where=video&ie=utf8&sort=rel&listmode=v&stype=&period=&playtime=&selected_cp=&nso=&x_video=&sm=tab_pge&query=날씨&start=1&offset=100");
             var target = webPage.GetElementbyId("main_pack").Descendants("dt");
             var weatherNews = new List<WeatherNews>{ };
 

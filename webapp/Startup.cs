@@ -27,7 +27,7 @@ namespace hellodotnetcore
                 builder =>
                 {
                     builder
-                        .WithOrigins("http://localhost:3001", "https://github.com/easywaldo")
+                        .WithOrigins("http://localhost:3001", "https://easywaldo.github.io")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 })
