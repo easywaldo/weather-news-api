@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -48,6 +50,20 @@ namespace hellodotnetcore.Controllers
         [Route("GetWeatherNews")]
         public IEnumerable<WeatherNews> GetWeatherNews()
         {
+            var userPrincipal = HttpContext.Request.HttpContext.User.Claims;
+
+            // Look for the LastChanged claim.
+            var lastChanged = (from c in userPrincipal
+                               where c.Type == "LastChanged"
+                               select c.Value).FirstOrDefault();
+
+            //if (string.IsNullOrEmpty(lastChanged))
+            //{
+            //    //HttpContext.Request.HttpContext.Abort();
+            //    return Enumerable.Empty<WeatherNews>();
+            //}
+
+            //HttpContext.Response.StatusCode = 200;
             return _weatherNewsService.GetWeatherNews();
         }
     }
